@@ -1,5 +1,7 @@
 # Argos Extensions
 
+![GitHub](https://img.shields.io/github/license/AlFontal/argos-extensions?color=blue)
+
 Just a compilation of some GNOME Shell extensions which add collapsible indicators in the Gnome top bar
 that I have made for my personal machine and that might be useful to adapt for someone else.
 
