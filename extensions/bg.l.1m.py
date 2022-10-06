@@ -1,3 +1,4 @@
+import io
 import pytz
 import base64
 import requests
@@ -67,13 +68,14 @@ if current_df.device.nunique() > 1:
                       data=last_values_per_device, ha='center', size=8,
                       adjust_text=dict(expand_points=(0, 2), arrowprops=dict(arrowstyle='-', color='white')))
 
-p.save('last_plot.png')
+buffer = io.BytesIO()
+p.save(buffer)
+buffer.seek(0)
+img = base64.b64encode(buffer.getvalue()).decode()
+
 
 td = datetime.now(tz=TIMEZONE) - last_value['date']
 
-with open('last_plot.png', "rb") as image_file:
-    b64_image = base64.b64encode(image_file.read()).decode()
-
 print(f'{last_glucose} ({sign}{delta_per_min}) {direction} ({round(td.seconds / 60)}m)')
 print('---')
-print(f' |image={b64_image} href=https://{NIGHTSCOUT_SITE}')
+print(f' |image={img} href=https://{NIGHTSCOUT_SITE}')
